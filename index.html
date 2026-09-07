@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Alex | Professional Swimming Coaching</title>
+    <meta name="description" content="Master the water with Coach Alex. Professional swimming coaching for all ages, focusing on safety, technique, and endurance.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            DEFAULT: '#0A2540',
+                            light: '#13395c',
+                            dark: '#051829',
+                        },
+                        aqua: {
+                            DEFAULT: '#00D4FF',
+                            light: '#4ddfff',
+                            dark: '#00a8cc',
+                        },
+                        charcoal: '#1F2937',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body class="font-sans text-charcoal bg-gray-50 antialiased selection:bg-aqua selection:text-ocean">
+
+    <!-- Navigation -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-6 max-w-7xl flex items-center justify-between">
+            <a href="#" class="font-heading font-bold text-2xl tracking-tight text-ocean flex items-center gap-2">
+                <i class="fa-solid fa-water text-aqua"></i>
+                Coach Alex
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 font-medium">
+                <a href="#home" class="nav-link hover:text-aqua transition-colors duration-300">Home</a>
+                <a href="#about" class="nav-link hover:text-aqua transition-colors duration-300">About</a>
+                <a href="#programs" class="nav-link hover:text-aqua transition-colors duration-300">Programs</a>
+                <a href="#why-me" class="nav-link hover:text-aqua transition-colors duration-300">Why Me</a>
+                <a href="#contact" class="nav-link hover:text-aqua transition-colors duration-300">Contact</a>
+            </nav>
+
+            <div class="hidden md:block">
+                <a href="#contact" class="btn-primary">Book a Session</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-ocean focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+
+    <!-- Mobile Side Drawer Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[75%] max-w-[320px] bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between p-6 overflow-y-auto">
+        <!-- Drawer Header -->
+        <div class="flex items-center justify-between pb-5 border-b border-gray-100">
+            <a href="#" class="font-heading font-bold text-xl tracking-tight text-ocean flex items-center gap-2">
+                <i class="fa-solid fa-water text-aqua"></i>
+                Coach Alex
+            </a>
+            <button id="mobile-menu-close" class="text-2xl text-ocean hover:text-aqua transition-colors focus:outline-none p-1.5" aria-label="Close menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Navigation Links with Icons & Fitting -->
+        <nav class="flex flex-col gap-2.5 py-6 flex-grow">
+            <a href="#home" class="mobile-nav-item">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-house text-aqua/80 w-5 text-center"></i>
+                    Home
+                </span>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+            </a>
+            <a href="#about" class="mobile-nav-item">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-user text-aqua/80 w-5 text-center"></i>
+                    About
+                </span>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+            </a>
+            <a href="#programs" class="mobile-nav-item">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-person-swimming text-aqua/80 w-5 text-center"></i>
+                    Programs
+                </span>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+            </a>
+            <a href="#why-me" class="mobile-nav-item">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-medal text-aqua/80 w-5 text-center"></i>
+                    Why Me
+                </span>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+            </a>
+            <a href="#contact" class="mobile-nav-item">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-envelope text-aqua/80 w-5 text-center"></i>
+                    Contact
+                </span>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+            </a>
+        </nav>
+
+        <!-- Drawer Footer with Book a Session Button -->
+        <div class="pt-5 pb-6 border-t border-gray-100 mt-auto">
+            <a href="#contact" class="btn-primary w-full text-center flex items-center justify-center gap-2 py-3.5 shadow-md">
+                Book a Session <i class="fa-solid fa-arrow-right text-sm"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen min-h-[600px] flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="images/hero_bg.jpg" alt="Swimming pool underwater view" class="w-full h-full object-cover">
+            <!-- Dynamic Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-ocean/90 via-ocean/70 to-transparent"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 max-w-7xl relative z-10 text-white flex flex-col items-start hero-content-animation">
+            <div class="max-w-3xl">
+                <span class="inline-block py-1 px-3 rounded-full bg-aqua/20 text-aqua border border-aqua/30 font-semibold tracking-wider text-sm mb-6 animate-fade-in-up">
+                    Professional Swimming Coaching
+                </span>
+                <h1 class="font-heading font-extrabold text-5xl md:text-7xl leading-tight mb-6 text-white animate-fade-in-up delay-100">
+                    Master the Water:<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua to-white">Unlock Your Full Potential</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed animate-fade-in-up delay-200 font-light">
+                    Transform your stroke with expert guidance. Specializing in technique correction, endurance building, and safety for all age groups.
+                </p>
+                <div class="flex flex-wrap gap-4 animate-fade-in-up delay-300">
+                    <a href="#contact" class="btn-primary">
+                        Book a Session <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#programs" class="btn-secondary">
+                        View Programs
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Element -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180">
+            <svg class="block w-full h-[50px] md:h-[100px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-gray-50"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Image Wrapper with glass styling -->
+                <div class="lg:w-1/2 relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-aqua to-ocean opacity-30 blur-lg rounded-2xl group-hover:opacity-50 transition duration-700"></div>
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5] md:aspect-square lg:aspect-[4/5]">
+                        <!-- Using a solid placeholder since we only generated one image, but styled beautifully -->
+                        <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coach Alex coaching" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-ocean/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-8 left-8 text-white">
+                            <h3 class="font-heading font-bold text-2xl">Coach Alex</h3>
+                            <p class="text-aqua font-medium">Head Swimming Coach</p>
+                        </div>
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl glass-card z-10 flex items-center gap-4 animate-float">
+                        <div class="w-12 h-12 rounded-full bg-ocean/10 flex items-center justify-center text-ocean text-xl">
+                            <i class="fa-solid fa-medal"></i>
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-3xl text-ocean">10+</p>
+                            <p class="text-sm text-gray-500 font-medium">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="lg:w-1/2">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="h-[2px] w-12 bg-aqua"></div>
+                        <span class="text-aqua font-bold tracking-wider uppercase text-sm">About The Coach</span>
+                    </div>
+                    <h2 class="font-heading font-bold text-4xl md:text-5xl text-ocean mb-6">
+                        Turning Passion into <span class="text-aqua">Perfection</span>
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Hi, I'm Alex. With over a decade of experience in the water, I've dedicated my career to helping swimmers of all levels—from toddlers taking their first splash to competitive triathletes shaving seconds off their personal bests.
+                    </p>
+                    <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                        My coaching philosophy revolves around three core pillars: <strong class="text-ocean">Safety, Efficiency, and Endurance</strong>. I believe that perfect technique is the foundation of both speed and enjoyment in the water.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-10">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-check-circle text-aqua mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-ocean">ASCA Certified</h4>
+                                <p class="text-sm text-gray-500">Level 3 Coach</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-check-circle text-aqua mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-ocean">Red Cross</h4>
+                                <p class="text-sm text-gray-500">Lifeguard & CPR</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="btn-primary">Start Your Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6 max-w-7xl relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <div class="h-[2px] w-8 bg-aqua"></div>
+                    <span class="text-aqua font-bold tracking-wider uppercase text-sm">Training Programs</span>
+                    <div class="h-[2px] w-8 bg-aqua"></div>
+                </div>
+                <h2 class="font-heading font-bold text-4xl md:text-5xl text-ocean mb-6">Programs for Every Swimmer</h2>
+                <p class="text-gray-600 text-lg">Whether you are just starting out or preparing for your next competition, there is a tailored program designed for your success.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Program Card 1: Kids -->
+                <div class="program-card bg-gray-50 rounded-2xl p-8 border border-gray-100 relative overflow-hidden group flex flex-col h-full">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-aqua/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
+                    <div class="w-14 h-14 bg-ocean rounded-xl flex items-center justify-center text-white text-2xl mb-6 relative z-10 shadow-lg shadow-ocean/20">
+                        <i class="fa-solid fa-child-reaching"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-2xl text-ocean mb-2 relative z-10">Kids Swimming Sessions</h3>
+                    <p class="text-aqua font-bold mb-4 relative z-10 text-sm tracking-wide">Coach: Coach Alex</p>
+                    
+                    <div class="mb-6 relative z-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                        <div class="flex items-start gap-3 mb-2">
+                            <i class="fa-regular fa-calendar text-ocean mt-1"></i>
+                            <p class="text-sm text-gray-700 font-medium">Sun, Tue, & Thu</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-regular fa-clock text-ocean mt-1"></i>
+                            <p class="text-sm text-gray-700 font-medium">4:00 PM – 6:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-8 text-sm leading-relaxed relative z-10 flex-grow">Fun, engaging, and safe group sessions designed to build confidence, water safety skills, and foundational techniques for children.</p>
+                    
+                    <a href="https://wa.me/01023412285" target="_blank" class="w-full text-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:bg-[#20b858] transition-colors relative z-10 shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Book via WhatsApp
+                    </a>
+                </div>
+
+                <!-- Program Card 2: Men -->
+                <div class="program-card bg-ocean text-white rounded-2xl p-8 shadow-xl relative overflow-hidden group transform lg:-translate-y-4 flex flex-col h-full">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
+                    <!-- Highlight Badge -->
+                    <div class="absolute top-4 right-4 bg-aqua text-ocean text-xs font-bold px-3 py-1 rounded-full z-10">Intensive</div>
+                    
+                    <div class="w-14 h-14 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-aqua text-2xl mb-6 relative z-10 border border-white/20">
+                        <i class="fa-solid fa-person-swimming"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-2xl mb-2 relative z-10">Men's Swimming Programs</h3>
+                    <p class="text-aqua font-bold mb-4 relative z-10 text-sm tracking-wide">Coach: Coach Alex</p>
+                    
+                    <div class="mb-6 relative z-10 bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm">
+                        <div class="flex items-start gap-3 mb-2">
+                            <i class="fa-regular fa-calendar text-aqua mt-1"></i>
+                            <p class="text-sm text-white font-medium">Sat, Mon, & Wed</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-regular fa-clock text-aqua mt-1"></i>
+                            <p class="text-sm text-white font-medium">8:00 PM – 10:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300 mb-8 text-sm leading-relaxed relative z-10 flex-grow">Intensive group training focusing on stroke refinement, endurance building, and competitive techniques for men of all skill levels.</p>
+                    
+                    <a href="https://wa.me/01023412285" target="_blank" class="w-full text-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:bg-[#20b858] transition-colors relative z-10 shadow-md shadow-[#25D366]/20 flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Book via WhatsApp
+                    </a>
+                </div>
+
+                <!-- Program Card 3: Women -->
+                <div class="program-card bg-gray-50 rounded-2xl p-8 border border-gray-100 relative overflow-hidden group flex flex-col h-full">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-aqua/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
+                    <div class="w-14 h-14 bg-ocean rounded-xl flex items-center justify-center text-white text-2xl mb-6 relative z-10 shadow-lg shadow-ocean/20">
+                        <i class="fa-solid fa-water"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-2xl text-ocean mb-2 relative z-10">Women's Swimming Programs</h3>
+                    <p class="text-aqua font-bold mb-4 relative z-10 text-sm tracking-wide">Coach: Coach Alex</p>
+                    
+                    <div class="mb-6 relative z-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                        <div class="flex items-start gap-3 mb-2">
+                            <i class="fa-regular fa-calendar text-ocean mt-1"></i>
+                            <p class="text-sm text-gray-700 font-medium">Sun, Tue, & Thu</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-regular fa-clock text-ocean mt-1"></i>
+                            <p class="text-sm text-gray-700 font-medium">10:00 AM – 12:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-8 text-sm leading-relaxed relative z-10 flex-grow">Supportive group sessions emphasizing proper form, fitness, and aquatic comfort in a dedicated, encouraging environment.</p>
+                    
+                    <a href="https://wa.me/01023412285" target="_blank" class="w-full text-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:bg-[#20b858] transition-colors relative z-10 shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Book via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Train With Me -->
+    <section id="why-me" class="py-24 bg-ocean text-white relative overflow-hidden">
+        <!-- Abstract BG Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full border-[20px] border-aqua"></div>
+            <div class="absolute bottom-10 right-10 w-64 h-64 rounded-full border-[10px] border-aqua"></div>
+        </div>
+
+        <div class="container mx-auto px-6 max-w-7xl relative z-10">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <h2 class="font-heading font-bold text-4xl md:text-5xl mb-6">Why Train With Me?</h2>
+                    <p class="text-gray-300 text-lg mb-10">I don't just teach you how to swim; I teach you how to understand the water. My modern approach guarantees measurable results.</p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-aqua/20 text-aqua flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Personalized Training Plans</h4>
+                                <p class="text-gray-400">No cookie-cutter routines. Every session is designed around your specific goals, body type, and current skill level.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-aqua/20 text-aqua flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-video"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Video Analysis</h4>
+                                <p class="text-gray-400">See what you feel. We use underwater cameras to review your stroke mechanics frame-by-frame and make precise adjustments.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-aqua/20 text-aqua flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Flexible Scheduling</h4>
+                                <p class="text-gray-400">Training that fits your busy life. Early mornings, late evenings, or weekends—we find a time that works for you.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 w-full">
+                    <!-- Dashboard/Results Mockup to show "Proven Results" -->
+                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl relative">
+                        <div class="absolute -top-4 -right-4 bg-aqua text-ocean font-bold px-4 py-2 rounded-xl shadow-lg transform rotate-3">
+                            Proven Results
+                        </div>
+                        <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+                            <h4 class="font-heading font-bold text-xl">Swimmer Progress</h4>
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Freestyle Technique</span>
+                                    <span class="text-aqua font-bold">95%</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-aqua to-blue-400 h-2 rounded-full w-[95%]"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Endurance</span>
+                                    <span class="text-aqua font-bold">88%</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-aqua to-blue-400 h-2 rounded-full w-[88%]"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Speed (100m Pace)</span>
+                                    <span class="text-aqua font-bold">Improved by 12s</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-aqua to-blue-400 h-2 rounded-full w-[100%]"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-white/5 rounded-xl p-4 border border-white/10 flex items-center gap-4">
+                            <i class="fa-solid fa-trophy text-3xl text-yellow-400"></i>
+                            <div>
+                                <h5 class="font-bold">Average Milestone</h5>
+                                <p class="text-sm text-gray-400">Goals reached within 4 weeks</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-ocean relative overflow-hidden">
+        <!-- SVG Wave Top -->
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="block w-full h-[50px] md:h-[100px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-gray-50"></path>
+            </svg>
+        </div>
+
+        <!-- Background accents for frosted glass to look good over -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-aqua/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+        <div class="container mx-auto px-6 max-w-6xl relative z-10 pt-10 text-center">
+            <h2 class="font-heading font-bold text-4xl md:text-5xl text-white mb-6">Ready to Dive In?</h2>
+            <p class="text-gray-300 mb-10 text-xl max-w-2xl mx-auto">Send me a message to discuss your goals, select a program, or book a session directly. I aim to respond to all inquiries within 24 hours.</p>
+            
+            <div class="flex flex-col lg:flex-row gap-10 items-stretch text-left">
+                <!-- Contact Form -->
+                <form id="contactForm" class="flex-grow bg-white/10 backdrop-blur-xl p-8 md:p-12 rounded-3xl shadow-2xl border border-white/20 relative overflow-hidden group lg:w-2/3">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                            <input type="text" id="name" required class="w-full bg-black/40 border border-aqua/30 text-white rounded-xl px-5 py-4 focus:outline-none focus:border-aqua focus:ring-2 focus:ring-aqua/50 focus:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-all duration-300 placeholder-gray-500" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" required class="w-full bg-black/40 border border-aqua/30 text-white rounded-xl px-5 py-4 focus:outline-none focus:border-aqua focus:ring-2 focus:ring-aqua/50 focus:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-all duration-300 placeholder-gray-500" placeholder="+1 234 567 890">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                            <input type="email" id="email" required class="w-full bg-black/40 border border-aqua/30 text-white rounded-xl px-5 py-4 focus:outline-none focus:border-aqua focus:ring-2 focus:ring-aqua/50 focus:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-all duration-300 placeholder-gray-500" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                            <div class="relative">
+                                <select id="subject" required class="w-full bg-black/40 border border-aqua/30 text-white rounded-xl px-5 py-4 focus:outline-none focus:border-aqua focus:ring-2 focus:ring-aqua/50 focus:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-all duration-300 appearance-none cursor-pointer">
+                                    <option value="" disabled selected class="text-gray-500">How can I help you?</option>
+                                    <option value="Kids Swimming Program" class="text-black">Kids Swimming Program</option>
+                                    <option value="Men's Swimming Program" class="text-black">Men's Swimming Program</option>
+                                    <option value="Women's Swimming Program" class="text-black">Women's Swimming Program</option>
+                                    <option value="Private Coaching" class="text-black">Private Coaching</option>
+                                    <option value="General Inquiry" class="text-black">General Inquiry</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-aqua">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-8">
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                        <textarea id="message" rows="4" required class="w-full bg-black/40 border border-aqua/30 text-white rounded-xl px-5 py-4 focus:outline-none focus:border-aqua focus:ring-2 focus:ring-aqua/50 focus:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-all duration-300 placeholder-gray-500 resize-none" placeholder="Your message here..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full btn-neon font-bold text-ocean uppercase tracking-wider py-4 rounded-xl flex items-center justify-center gap-2">
+                        <span class="btn-text flex items-center gap-2"><i class="fa-regular fa-paper-plane"></i> Send Message</span>
+                    </button>
+                </form>
+
+                <!-- WhatsApp Quick Contact -->
+                <div class="lg:w-1/3 bg-white/5 backdrop-blur-xl p-8 md:p-12 rounded-3xl shadow-2xl border border-white/20 flex flex-col items-center justify-center text-center hover:bg-white/10 transition-all duration-300 group">
+                    <div class="w-20 h-20 bg-[#25D366]/20 rounded-full flex items-center justify-center text-[#25D366] text-4xl mb-6 shadow-[0_0_15px_rgba(37,211,102,0.4)] group-hover:shadow-[0_0_25px_rgba(37,211,102,0.6)] transition-all duration-300">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-3xl text-white mb-2">WhatsApp Me</h3>
+                    <p class="text-gray-300 mb-8 text-lg">Fastest way to reach me directly for quick questions.</p>
+                    <a href="https://wa.me/01023412285" target="_blank" class="w-full inline-flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold text-lg px-8 py-4 rounded-xl shadow-lg shadow-[#25D366]/30 hover:bg-[#20b858] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+                        <span class="relative z-10 flex items-center gap-2"><i class="fa-brands fa-whatsapp text-2xl"></i> Start Chat</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ocean text-white pt-16 pb-8 border-t border-white/10">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-2">
+                    <a href="#" class="font-heading font-bold text-3xl tracking-tight text-white flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-water text-aqua"></i>
+                        Coach Alex
+                    </a>
+                    <p class="text-gray-400 max-w-sm mb-6">Professional swimming coaching dedicated to safety, technique perfection, and unlocking your athletic potential in the water.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6 text-aqua">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#programs" class="hover:text-white transition-colors">Programs</a></li>
+                        <li><a href="#why-me" class="hover:text-white transition-colors">Why Me</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6 text-aqua">Legal</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Waiver Form</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>&copy; <span id="year"></span> Coach Alex Elite Coaching. All rights reserved.</p>
+                <p>Designed with <i class="fa-solid fa-heart text-aqua"></i> for swimmers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/01023412285" target="_blank" class="whatsapp-float flex items-center justify-center" id="whatsappFloat" aria-label="Chat on WhatsApp" title="Chat on WhatsApp (Hold & Drag to move)">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Script for interactions -->
+    <script src="script.js?v=3"></script>
+</body>
+</html>
