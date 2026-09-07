@@ -15,6 +15,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -38,12 +39,26 @@
             }
         }
     </script>
+    <script>
+        // Apply theme immediately on head parse to prevent flash of wrong theme
+        (function() {
+            try {
+                const storedTheme = localStorage.getItem('coach_alex_theme');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body class="font-sans text-charcoal bg-gray-50 antialiased selection:bg-aqua selection:text-ocean">
 
@@ -64,16 +79,30 @@
                 <a href="#contact" class="nav-link hover:text-aqua transition-colors duration-300">Contact</a>
             </nav>
 
-            <div class="hidden md:block">
+            <!-- Desktop Actions: Theme Toggle & Book Button -->
+            <div class="hidden md:flex items-center gap-4">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark theme" title="Toggle dark/light theme">
+                    <span class="theme-icon-container">
+                        <i class="fa-solid fa-moon theme-icon-moon"></i>
+                        <i class="fa-solid fa-sun theme-icon-sun"></i>
+                    </span>
+                    <span class="theme-text text-xs font-bold uppercase tracking-wider hidden lg:inline">Theme</span>
+                </button>
                 <a href="#contact" class="btn-primary">Book a Session</a>
             </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="md:hidden text-2xl text-ocean focus:outline-none">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-
+            <!-- Mobile Controls -->
+            <div class="flex md:hidden items-center gap-3">
+                <button id="theme-toggle-mobile" class="theme-toggle-btn p-2.5" aria-label="Toggle light/dark theme" title="Toggle dark/light theme">
+                    <span class="theme-icon-container">
+                        <i class="fa-solid fa-moon theme-icon-moon"></i>
+                        <i class="fa-solid fa-sun theme-icon-sun"></i>
+                    </span>
+                </button>
+                <button id="mobile-menu-btn" class="text-2xl text-ocean focus:outline-none p-1" aria-label="Open navigation menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -83,13 +112,26 @@
     <!-- Mobile Side Drawer Menu -->
     <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[75%] max-w-[320px] bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between p-6 overflow-y-auto">
         <!-- Drawer Header -->
-        <div class="flex items-center justify-between pb-5 border-b border-gray-100">
+        <div class="flex items-center justify-between pb-4 border-b border-gray-100">
             <a href="#" class="font-heading font-bold text-xl tracking-tight text-ocean flex items-center gap-2">
                 <i class="fa-solid fa-water text-aqua"></i>
                 Coach Alex
             </a>
             <button id="mobile-menu-close" class="text-2xl text-ocean hover:text-aqua transition-colors focus:outline-none p-1.5" aria-label="Close menu">
                 <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Theme Switcher Row -->
+        <div class="py-3 border-b border-gray-100 flex items-center justify-between drawer-theme-row">
+            <span class="text-sm font-semibold text-ocean flex items-center gap-2 drawer-theme-text">
+                <i class="fa-solid fa-circle-half-stroke text-aqua"></i> Color Theme
+            </span>
+            <button id="theme-toggle-drawer" class="theme-switch" aria-label="Toggle dark/light theme" title="Toggle dark/light theme">
+                <span class="switch-handle">
+                    <i class="fa-solid fa-sun switch-icon-sun"></i>
+                    <i class="fa-solid fa-moon switch-icon-moon"></i>
+                </span>
             </button>
         </div>
 
@@ -175,7 +217,7 @@
         <!-- Decorative Element -->
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180">
             <svg class="block w-full h-[50px] md:h-[100px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-gray-50"></path>
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-gray-50 wave-hero-bottom"></path>
             </svg>
         </div>
     </section>
@@ -262,34 +304,34 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Program Card 1: Kids -->
-                <div class="program-card bg-gray-50 rounded-2xl p-8 border border-gray-100 relative overflow-hidden group flex flex-col h-full">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-aqua/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
-                    <div class="w-14 h-14 bg-ocean rounded-xl flex items-center justify-center text-white text-2xl mb-6 relative z-10 shadow-lg shadow-ocean/20">
+                <div class="program-card bg-[#16304A] text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden group flex flex-col h-full border border-white/10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
+                    <div class="w-14 h-14 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-aqua text-2xl mb-6 relative z-10 border border-white/20">
                         <i class="fa-solid fa-child-reaching"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-2xl text-ocean mb-2 relative z-10">Kids Swimming Sessions</h3>
+                    <h3 class="font-heading font-bold text-2xl text-white mb-2 relative z-10">Kids Swimming Sessions</h3>
                     <p class="text-aqua font-bold mb-4 relative z-10 text-sm tracking-wide">Coach: Coach Alex</p>
                     
-                    <div class="mb-6 relative z-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <div class="mb-6 relative z-10 bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm shadow-inner">
                         <div class="flex items-start gap-3 mb-2">
-                            <i class="fa-regular fa-calendar text-ocean mt-1"></i>
-                            <p class="text-sm text-gray-700 font-medium">Sun, Tue, & Thu</p>
+                            <i class="fa-regular fa-calendar text-aqua mt-1"></i>
+                            <p class="text-sm text-white font-medium">Sun, Tue, & Thu</p>
                         </div>
                         <div class="flex items-start gap-3">
-                            <i class="fa-regular fa-clock text-ocean mt-1"></i>
-                            <p class="text-sm text-gray-700 font-medium">4:00 PM – 6:00 PM</p>
+                            <i class="fa-regular fa-clock text-aqua mt-1"></i>
+                            <p class="text-sm text-white font-medium">4:00 PM – 6:00 PM</p>
                         </div>
                     </div>
                     
-                    <p class="text-gray-600 mb-8 text-sm leading-relaxed relative z-10 flex-grow">Fun, engaging, and safe group sessions designed to build confidence, water safety skills, and foundational techniques for children.</p>
+                    <p class="text-gray-300 mb-8 text-sm leading-relaxed relative z-10 flex-grow">Fun, engaging, and safe group sessions designed to build confidence, water safety skills, and foundational techniques for children.</p>
                     
-                    <a href="https://wa.me/01023412285" target="_blank" class="w-full text-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:bg-[#20b858] transition-colors relative z-10 shadow-md flex items-center justify-center gap-2">
+                    <a href="https://wa.me/01023412285" target="_blank" class="w-full text-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:bg-[#20b858] transition-colors relative z-10 shadow-md shadow-[#25D366]/20 flex items-center justify-center gap-2">
                         <i class="fa-brands fa-whatsapp text-lg"></i> Book via WhatsApp
                     </a>
                 </div>
 
                 <!-- Program Card 2: Men -->
-                <div class="program-card bg-ocean text-white rounded-2xl p-8 shadow-xl relative overflow-hidden group transform lg:-translate-y-4 flex flex-col h-full">
+                <div class="program-card bg-[#16304A] text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden group transform lg:-translate-y-4 flex flex-col h-full border border-white/15">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
                     <!-- Highlight Badge -->
                     <div class="absolute top-4 right-4 bg-aqua text-ocean text-xs font-bold px-3 py-1 rounded-full z-10">Intensive</div>
@@ -297,10 +339,10 @@
                     <div class="w-14 h-14 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-aqua text-2xl mb-6 relative z-10 border border-white/20">
                         <i class="fa-solid fa-person-swimming"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-2xl mb-2 relative z-10">Men's Swimming Programs</h3>
+                    <h3 class="font-heading font-bold text-2xl text-white mb-2 relative z-10">Men's Swimming Programs</h3>
                     <p class="text-aqua font-bold mb-4 relative z-10 text-sm tracking-wide">Coach: Coach Alex</p>
                     
-                    <div class="mb-6 relative z-10 bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm">
+                    <div class="mb-6 relative z-10 bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm shadow-inner">
                         <div class="flex items-start gap-3 mb-2">
                             <i class="fa-regular fa-calendar text-aqua mt-1"></i>
                             <p class="text-sm text-white font-medium">Sat, Mon, & Wed</p>
@@ -319,28 +361,28 @@
                 </div>
 
                 <!-- Program Card 3: Women -->
-                <div class="program-card bg-gray-50 rounded-2xl p-8 border border-gray-100 relative overflow-hidden group flex flex-col h-full">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-aqua/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
-                    <div class="w-14 h-14 bg-ocean rounded-xl flex items-center justify-center text-white text-2xl mb-6 relative z-10 shadow-lg shadow-ocean/20">
+                <div class="program-card bg-[#16304A] text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden group flex flex-col h-full border border-white/10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -z-0 transition-transform group-hover:scale-150 duration-500"></div>
+                    <div class="w-14 h-14 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-aqua text-2xl mb-6 relative z-10 border border-white/20">
                         <i class="fa-solid fa-water"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-2xl text-ocean mb-2 relative z-10">Women's Swimming Programs</h3>
+                    <h3 class="font-heading font-bold text-2xl text-white mb-2 relative z-10">Women's Swimming Programs</h3>
                     <p class="text-aqua font-bold mb-4 relative z-10 text-sm tracking-wide">Coach: Coach Alex</p>
                     
-                    <div class="mb-6 relative z-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <div class="mb-6 relative z-10 bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm shadow-inner">
                         <div class="flex items-start gap-3 mb-2">
-                            <i class="fa-regular fa-calendar text-ocean mt-1"></i>
-                            <p class="text-sm text-gray-700 font-medium">Sun, Tue, & Thu</p>
+                            <i class="fa-regular fa-calendar text-aqua mt-1"></i>
+                            <p class="text-sm text-white font-medium">Sun, Tue, & Thu</p>
                         </div>
                         <div class="flex items-start gap-3">
-                            <i class="fa-regular fa-clock text-ocean mt-1"></i>
-                            <p class="text-sm text-gray-700 font-medium">10:00 AM – 12:00 PM</p>
+                            <i class="fa-regular fa-clock text-aqua mt-1"></i>
+                            <p class="text-sm text-white font-medium">10:00 AM – 12:00 PM</p>
                         </div>
                     </div>
                     
-                    <p class="text-gray-600 mb-8 text-sm leading-relaxed relative z-10 flex-grow">Supportive group sessions emphasizing proper form, fitness, and aquatic comfort in a dedicated, encouraging environment.</p>
+                    <p class="text-gray-300 mb-8 text-sm leading-relaxed relative z-10 flex-grow">Supportive group sessions emphasizing proper form, fitness, and aquatic comfort in a dedicated, encouraging environment.</p>
                     
-                    <a href="https://wa.me/01023412285" target="_blank" class="w-full text-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:bg-[#20b858] transition-colors relative z-10 shadow-md flex items-center justify-center gap-2">
+                    <a href="https://wa.me/01023412285" target="_blank" class="w-full text-center bg-[#25D366] text-white font-bold py-3 rounded-xl hover:bg-[#20b858] transition-colors relative z-10 shadow-md shadow-[#25D366]/20 flex items-center justify-center gap-2">
                         <i class="fa-brands fa-whatsapp text-lg"></i> Book via WhatsApp
                     </a>
                 </div>
@@ -349,9 +391,9 @@
     </section>
 
     <!-- Why Train With Me -->
-    <section id="why-me" class="py-24 bg-ocean text-white relative overflow-hidden">
+    <section id="why-me" class="py-24 bg-white text-charcoal relative overflow-hidden">
         <!-- Abstract BG Elements -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-25 pointer-events-none">
             <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full border-[20px] border-aqua"></div>
             <div class="absolute bottom-10 right-10 w-64 h-64 rounded-full border-[10px] border-aqua"></div>
         </div>
@@ -359,35 +401,35 @@
         <div class="container mx-auto px-6 max-w-7xl relative z-10">
             <div class="flex flex-col lg:flex-row gap-16 items-center">
                 <div class="lg:w-1/2">
-                    <h2 class="font-heading font-bold text-4xl md:text-5xl mb-6">Why Train With Me?</h2>
-                    <p class="text-gray-300 text-lg mb-10">I don't just teach you how to swim; I teach you how to understand the water. My modern approach guarantees measurable results.</p>
+                    <h2 class="font-heading font-bold text-4xl md:text-5xl text-ocean mb-6">Why Train With Me?</h2>
+                    <p class="text-gray-600 text-lg mb-10">I don't just teach you how to swim; I teach you how to understand the water. My modern approach guarantees measurable results.</p>
                     
                     <div class="space-y-8">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-aqua/20 text-aqua flex items-center justify-center flex-shrink-0 mt-1">
+                            <div class="w-12 h-12 rounded-full border-2 border-aqua text-aqua bg-transparent flex items-center justify-center flex-shrink-0 mt-1">
                                 <i class="fa-solid fa-clipboard-list"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-xl mb-2">Personalized Training Plans</h4>
-                                <p class="text-gray-400">No cookie-cutter routines. Every session is designed around your specific goals, body type, and current skill level.</p>
+                                <h4 class="font-bold text-xl text-ocean mb-2">Personalized Training Plans</h4>
+                                <p class="text-gray-600">No cookie-cutter routines. Every session is designed around your specific goals, body type, and current skill level.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-aqua/20 text-aqua flex items-center justify-center flex-shrink-0 mt-1">
+                            <div class="w-12 h-12 rounded-full border-2 border-aqua text-aqua bg-transparent flex items-center justify-center flex-shrink-0 mt-1">
                                 <i class="fa-solid fa-video"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-xl mb-2">Video Analysis</h4>
-                                <p class="text-gray-400">See what you feel. We use underwater cameras to review your stroke mechanics frame-by-frame and make precise adjustments.</p>
+                                <h4 class="font-bold text-xl text-ocean mb-2">Video Analysis</h4>
+                                <p class="text-gray-600">See what you feel. We use underwater cameras to review your stroke mechanics frame-by-frame and make precise adjustments.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-aqua/20 text-aqua flex items-center justify-center flex-shrink-0 mt-1">
+                            <div class="w-12 h-12 rounded-full border-2 border-aqua text-aqua bg-transparent flex items-center justify-center flex-shrink-0 mt-1">
                                 <i class="fa-solid fa-calendar-check"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-xl mb-2">Flexible Scheduling</h4>
-                                <p class="text-gray-400">Training that fits your busy life. Early mornings, late evenings, or weekends—we find a time that works for you.</p>
+                                <h4 class="font-bold text-xl text-ocean mb-2">Flexible Scheduling</h4>
+                                <p class="text-gray-600">Training that fits your busy life. Early mornings, late evenings, or weekends—we find a time that works for you.</p>
                             </div>
                         </div>
                     </div>
@@ -395,7 +437,7 @@
                 
                 <div class="lg:w-1/2 w-full">
                     <!-- Dashboard/Results Mockup to show "Proven Results" -->
-                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl relative">
+                    <div class="bg-ocean text-white rounded-2xl p-8 border border-ocean-light/40 shadow-2xl relative">
                         <div class="absolute -top-4 -right-4 bg-aqua text-ocean font-bold px-4 py-2 rounded-xl shadow-lg transform rotate-3">
                             Proven Results
                         </div>
@@ -458,7 +500,7 @@
         <!-- SVG Wave Top -->
         <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
             <svg class="block w-full h-[50px] md:h-[100px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-gray-50"></path>
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-white wave-contact-top"></path>
             </svg>
         </div>
 
@@ -541,14 +583,14 @@
                     </a>
                     <p class="text-gray-400 max-w-sm mb-6">Professional swimming coaching dedicated to safety, technique perfection, and unlocking your athletic potential in the water.</p>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300">
+                        <a href="https://instagram.com/zero_0ne_group" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300" aria-label="Instagram">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300">
+                        <a href="https://facebook.com/zero_0ne_group" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300" aria-label="Facebook">
                             <i class="fa-brands fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-aqua hover:text-ocean transition-colors duration-300">
-                            <i class="fa-brands fa-youtube"></i>
+                        <a href="https://wa.me/01023412285" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors duration-300" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
                         </a>
                     </div>
                 </div>
@@ -586,6 +628,6 @@
     </a>
 
     <!-- Script for interactions -->
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>

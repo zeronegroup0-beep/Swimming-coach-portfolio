@@ -1,3 +1,77 @@
+// Theme Toggle & State Management (Light / Dark Mode with Aqua Blue accents)
+const THEME_STORAGE_KEY = 'coach_alex_theme';
+let themeTransitionTimeout = null;
+
+function getPreferredTheme() {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === 'dark' || saved === 'light') {
+        return saved;
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function updateThemeUI(theme) {
+    const isDark = theme === 'dark';
+    const toggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile, #theme-toggle-drawer');
+
+    toggleBtns.forEach(btn => {
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        btn.setAttribute('title', isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme (Aqua)');
+        const label = btn.querySelector('.theme-text');
+        if (label) {
+            label.textContent = isDark ? 'Light' : 'Dark';
+        }
+    });
+}
+
+function applyTheme(theme, animate = false) {
+    if (animate) {
+        document.documentElement.classList.add('theme-transitioning');
+        clearTimeout(themeTransitionTimeout);
+        themeTransitionTimeout = setTimeout(() => {
+            document.documentElement.classList.remove('theme-transitioning');
+        }, 400);
+    }
+
+    if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (e) {}
+
+    updateThemeUI(theme);
+}
+
+function toggleTheme() {
+    const isCurrentlyDark = document.documentElement.classList.contains('dark');
+    const nextTheme = isCurrentlyDark ? 'light' : 'dark';
+    applyTheme(nextTheme, true);
+}
+
+// Bind click events on all theme toggles
+['theme-toggle', 'theme-toggle-mobile', 'theme-toggle-drawer'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('click', toggleTheme);
+    }
+});
+
+// Initial UI sync
+updateThemeUI(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+
+// Listen to OS system theme changes if user hasn't explicitly chosen
+if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+            applyTheme(e.matches ? 'dark' : 'light', true);
+        }
+    });
+}
+
 // Mobile Side Drawer Toggle Logic
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenuClose = document.getElementById('mobile-menu-close');
@@ -43,15 +117,14 @@ mobileNavLinks.forEach(link => {
     link.addEventListener('click', closeMobileMenu);
 });
 
-// Sticky Navbar Background on Scroll
+// Sticky Navbar on Scroll
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-        navbar.classList.add('bg-white/95', 'shadow-md');
-        navbar.classList.remove('bg-white/80', 'shadow-sm', 'py-4');
-        navbar.classList.add('py-2'); // Shrink slightly
+        navbar.classList.add('nav-scrolled', 'py-2');
+        navbar.classList.remove('py-4');
     } else {
-        navbar.classList.remove('bg-white/95', 'shadow-md', 'py-2');
-        navbar.classList.add('bg-white/80', 'shadow-sm', 'py-4');
+        navbar.classList.remove('nav-scrolled', 'py-2');
+        navbar.classList.add('py-4');
     }
 });
 
