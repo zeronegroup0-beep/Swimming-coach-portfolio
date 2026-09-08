@@ -1,13 +1,13 @@
-# 🏊 Coach Alex - Elite Swimming Coaching
+# 🏊 Zerone Group - Elite Swimming Coaching
 
-A modern, responsive landing page for Coach Alex, a professional ASCA Level 3 certified swimming coach.
+A modern, responsive landing page for Zerone Group Swimming Academy, providing certified elite swimming coaching and aquatic programs.
 
 ## ✨ Features
 
 - **Hero Section**: Engaging banner with stroke transformation tagline, dynamic action buttons, and animated wave styling.
-- **Interactive Navigation**: Sticky responsive navigation bar with smooth scrolling and an animated mobile side drawer with backdrop blur.
-- **Programs & Training**: Structured overview of coaching programs (Learn to Swim, Stroke Correction, Endurance, Competitive Prep).
-- **Why Me**: Highlighted certifications, safety standards, and track record.
+- **Interactive Navigation**: Sticky responsive navigation bar with smooth scrolling, theme toggle, and an animated mobile side drawer with backdrop blur.
+- **Programs & Training**: Structured overview of coaching programs (Kids Swimming Sessions, Men's Swimming Programs, Women's Swimming Programs).
+- **Why Zerone Group**: Highlighted certifications, safety standards, and proven swimmer progress metrics.
 - **Frosted Glass Contact Form**: Modern contact section with validation, interactive fields, and feedback states.
 - **Draggable Floating WhatsApp Action**: Free-drag & drop floating WhatsApp button (touch & mouse supported) with boundary clamping and smart tap detection.
 
@@ -28,4 +28,4 @@ python server.py
 ```
 
 Then open your browser at:
-`http://localhost:8080`
+`http://localhost:8081`

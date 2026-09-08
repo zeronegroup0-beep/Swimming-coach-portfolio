@@ -1,4 +1,4 @@
-/* Custom CSS for Coach Alex Landing Page */
+/* Custom CSS for Zerone Group Swimming Coaching */
 
 /* Base Styles & Utility Classes */
 html {
@@ -1023,4 +1023,20 @@ html.dark .btn-secondary:hover {
     background-color: #00D4FF !important;
     color: #04121e !important;
     box-shadow: 0 0 30px rgba(0, 212, 255, 0.6) !important;
+}
+
+/* Brand Logo Image */
+.brand-logo-img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    object-fit: contain;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+html.dark .brand-logo-img {
+    border-color: rgba(0, 212, 255, 0.4);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
 }

@@ -1,5 +1,5 @@
 // Theme Toggle & State Management (Light / Dark Mode with Aqua Blue accents)
-const THEME_STORAGE_KEY = 'coach_alex_theme';
+const THEME_STORAGE_KEY = 'zerone_theme';
 let themeTransitionTimeout = null;
 
 function getPreferredTheme() {
